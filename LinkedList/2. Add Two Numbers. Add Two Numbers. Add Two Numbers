@@ -1,0 +1,84 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+       struct ListNode *c1,*c2,*ca,*c,*cb;
+        int n1=0,n2=0;
+        c1=l1;
+        c2=l2;
+        while(c1!=NULL)
+        {
+            n1++;
+            c1=c1->next;
+        }
+         while(c2!=NULL)
+        {
+            n2++;
+            c2=c2->next;
+         }
+        if(n1>=n2)
+        {
+            c1=l1;
+            c2=l2;
+        }
+         if(n2>n1)
+        {
+            c1=l2;
+            c2=l1;
+        }
+        ca=c1;
+        int carry=0,temp;
+        while(c2!=NULL)
+        { 
+            temp=(c1->val)+(c2->val)+carry;
+            if(temp>9)
+            {
+                carry=temp/10;
+               temp=temp%10;
+            }
+            else
+            {
+                carry=0;
+            }
+            c1->val=temp;
+            cb=c1;
+            c1=c1->next;
+            c2=c2->next;
+          //  c1->val=c1->val+temp;
+        }
+      //  cout<<carry;
+      while(c1!=NULL)
+       {
+           temp=c1->val+carry;
+          if(temp>9)
+          {
+              carry=temp/10;
+              temp=temp%10;
+          }
+          else
+          {
+              carry=0;
+          }
+          c1->val=temp;
+          cb=c1;
+          c1=c1->next;
+          
+       }
+        if(carry!=0)
+        {
+            c=(struct ListNode*)malloc(sizeof(ListNode));
+            c->val=carry;
+            cb->next=c;
+            cb=c;
+            c->next=NULL;
+        }
+        return ca;
+}
+};
