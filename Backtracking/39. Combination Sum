@@ -1,0 +1,25 @@
+class Solution {
+    public void solve(int []nums,int start, int target, Set<ArrayList<Integer>>hs,int n, ArrayList<Integer> temp){
+         if(target==0){
+             hs.add(new ArrayList<>(temp));
+             return;
+         }
+         if(target<0){
+          return;
+         }
+         for(int i=start;i<n;i++){
+             temp.add(nums[i]);
+             target-=nums[i];
+             solve(nums,i,target,hs,n,temp);
+             target+=nums[i];
+             temp.remove(temp.size()-1);
+         }
+        
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Set<ArrayList<Integer>> hs = new HashSet<>();
+        int n=candidates.length;
+        solve(candidates,0,target,hs,n, new ArrayList<>()); 
+        return new ArrayList(hs); 
+    }
+}
