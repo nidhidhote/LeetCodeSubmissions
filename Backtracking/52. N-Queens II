@@ -1,0 +1,27 @@
+class Solution {
+    int count=0;
+    public void nQueen(int n,int row,boolean []cols,boolean []diago, boolean[] anti){
+        if(row==n){
+            count++;
+            return;
+        }
+        for(int col=0;col<n;col++){
+            if(cols[col]==false && diago[col+row]==false && anti[row-col+n-1]==false){
+                cols[col]=true;
+                diago[row+col]=true;
+                anti[row-col+n-1]=true;
+                nQueen(n,row+1,cols,diago,anti);
+                cols[col]=false;
+                diago[row+col]=false;
+                anti[row-col+n-1]=false; 
+            }
+        }
+    }
+    public int totalNQueens(int n) {
+        boolean []cols = new boolean[n+1];
+        boolean []diago = new boolean[2*n-1];
+        boolean []anti = new boolean[2*n-1];
+        nQueen(n,0,cols,diago,anti);
+        return count;
+    }
+}
