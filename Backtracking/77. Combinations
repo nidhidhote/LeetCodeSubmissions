@@ -1,0 +1,21 @@
+class Solution {
+    public void solve(int k,int idx,List<List<Integer>>ans,int n,ArrayList<Integer>temp){
+        if(temp.size()>k)return;
+        if(temp.size()==k)
+        {
+            ans.add(new ArrayList<>(temp));
+            return;
+        }
+        for(int i=idx;i<=n;i++){
+                temp.add(i);
+                solve(k,i+1,ans,n,temp);
+                temp.remove(temp.size()-1);
+        }
+    }
+    public List<List<Integer>> combine(int n, int k) {
+        boolean []vis = new boolean[n+1];
+        List<List<Integer>>ans = new ArrayList<>();
+        solve(k,1,ans,n,new ArrayList<>());
+        return ans;
+    }
+}
