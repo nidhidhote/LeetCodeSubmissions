@@ -1,0 +1,19 @@
+class Solution {
+    public void solve(int left,int right, HashSet<String> ans, String temp){
+        if(left==0 && right==0){
+            ans.add(temp);
+        }
+        if(left>0){
+            solve(left-1,right,ans,temp+"(");
+        }
+        if(right>left){
+            solve(left,right-1,ans,temp+")");
+        }
+        
+    }
+    public List<String> generateParenthesis(int n) {
+       HashSet<String>ans =new HashSet<>();
+        solve(n,n,ans,"");
+        return new ArrayList(ans);
+    }
+}

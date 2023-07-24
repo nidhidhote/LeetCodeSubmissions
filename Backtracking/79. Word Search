@@ -1,0 +1,38 @@
+class Solution {
+    boolean ans=false;
+    public boolean dfs(int i,int j,char[][]num,int m,int n, int l,String word,boolean [][] vis){
+        if(l==word.length())
+        {
+            return true;
+        }
+        int []dx={0,-1,0,1};
+        int []dy={1,0,-1,0};
+        for(int k=0;k<4;k++){
+            int n1=i+dx[k];
+            int n2=j+dy[k];
+             char ch=word.charAt(l);
+            if(n1>=0 && n2>=0 && n1<m && n2<n && !vis[n1][n2] && num[n1][n2]==ch){
+              vis[n1][n2]=true; 
+             ans|=dfs(n1,n2,num,m,n,l+1,word,vis);
+              vis[n1][n2]=false;
+            }
+        }
+        return ans;
+    }
+    public boolean exist(char[][] board, String word) {
+        int row=-1,col=-1, m=board.length, n=board[0].length;
+        boolean [][]vis=new boolean[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]==word.charAt(0)){
+                    row=i;
+                    col=j;
+                    vis[i][j]=true;
+                    if(dfs(row,col,board,m,n,1,word,vis))return true;
+                    vis[i][j]=false;
+                }
+            }
+        }
+        return false;
+    }
+}
