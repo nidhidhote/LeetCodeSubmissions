@@ -1,0 +1,21 @@
+class Solution {
+    public int minSpeedOnTime(int[] dist, double hour) {
+        int l=1, r= (int)1e7, k=-1;
+        while(l<=r){
+            long mid=(l+r)/2;
+            double ans=0.0;
+             for(int j=0;j<dist.length-1;j++){
+              ans+=Math.ceil((double)(dist[j])/(double)(mid));
+        }
+        // System.out.println(ans);
+        ans+=(double)(dist[dist.length-1])/(double)(mid);
+        if(ans<=hour) 
+        {
+            k=(int)mid;  
+            r=(int)mid-1;
+        }
+        else l=(int)mid+1;
+        }
+        return k;
+    }
+}
