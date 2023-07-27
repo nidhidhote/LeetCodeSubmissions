@@ -1,0 +1,21 @@
+class Solution {
+    int maxPalLen(String S,int s,int e,int[][] dp){
+        if(s>e)return 0;
+        if(s==e)return 1;
+        if(dp[s][e]!=-1)return dp[s][e];
+        if(S.charAt(s)==S.charAt(e)){
+          dp[s][e]=2+maxPalLen(S,s+1,e-1,dp);  
+        }else{
+            dp[s][e]=Math.max(maxPalLen(S,s+1,e,dp),maxPalLen(S,s,e-1,dp));
+        }
+        return dp[s][e];
+    }
+    public int longestPalindromeSubseq(String s) {
+        int n=s.length();
+        int [][]dp = new int[n][n];
+        for(int[] row: dp){
+            Arrays.fill(row,-1);
+        }
+        return maxPalLen(s,0,n-1,dp);
+    }
+}
