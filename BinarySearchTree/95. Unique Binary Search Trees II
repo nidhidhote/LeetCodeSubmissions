@@ -1,0 +1,23 @@
+class Solution {
+    public List<TreeNode> solve(int s,int n){
+        List<TreeNode>ans=new ArrayList<>();
+        if(s>n){
+            ans.add(null);
+            return ans;
+        }
+        for(int i=s;i<=n;i++){
+            List<TreeNode>leftTree=solve(s,i-1);
+            List<TreeNode>rightTree=solve(i+1,n);
+            for(TreeNode left1: leftTree){
+                for(TreeNode right1: rightTree){
+                    TreeNode root=new TreeNode(i,left1,right1);
+                    ans.add(root);
+                }
+            }
+        }
+        return ans;
+    }
+    public List<TreeNode> generateTrees(int n) {
+        return solve(1,n);
+    }
+}
